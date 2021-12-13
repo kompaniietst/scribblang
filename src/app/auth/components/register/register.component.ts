@@ -30,6 +30,7 @@ export class RegisterComponent implements OnInit {
     console.log('register', this.form.value);
 
     const request = this.form.value;
+    this.s.register(request).subscribe(x => console.log('reg ', x));
     this.store.dispatch(registerAction({ request }));
   }
 

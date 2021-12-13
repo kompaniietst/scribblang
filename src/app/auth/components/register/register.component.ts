@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
+import { AuthService } from '../../services/auth.service';
+import { registerAction } from '../../store/actions/register.action';
 
 @Component({
   selector: 'app-register',
@@ -9,7 +12,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 export class RegisterComponent implements OnInit {
   form: FormGroup;
 
-  constructor() { }
+  constructor(private store: Store, private s: AuthService) { }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -24,8 +27,10 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('94',this.form.value);
+    console.log('register', this.form.value);
 
+    const request = this.form.value;
+    this.store.dispatch(registerAction({ request }));
   }
 
 }

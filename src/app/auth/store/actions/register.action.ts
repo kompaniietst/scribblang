@@ -1,11 +1,11 @@
 import { createAction, props } from "@ngrx/store";
 import { BackendErrorsInterface } from "../../interfaces/backendErrors.interface";
 import { CurrentUserInterface } from "../../interfaces/currentUser.interface";
-import { RequestInterface } from "../../interfaces/request.interface";
+import { RegisterRequestInterface } from "../../interfaces/registerRequest.interface";
 
 export const registerAction = createAction(
     '[Auth] Register',
-    props<{ request: RequestInterface }>()
+    props<{ request: RegisterRequestInterface }>()
 )
 
 export const registerSuccessAction = createAction(

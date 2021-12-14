@@ -11,6 +11,7 @@ import { reducers } from "./store/reducers";
 import { EffectsModule } from "@ngrx/effects";
 import { RegisterEffect } from "./store/effects/register.effect";
 import { PersistanceService } from "./services/persistance.service";
+import { LoginEffect } from "./store/effects/login.effect";
 
 const routes: Routes = [
     { path: "register", component: RegisterComponent },
@@ -24,7 +25,7 @@ const routes: Routes = [
         ReactiveFormsModule,
         HttpClientModule,
         StoreModule.forFeature('auth', reducers),
-        EffectsModule.forFeature([RegisterEffect])
+        EffectsModule.forFeature([RegisterEffect, LoginEffect])
     ],
     declarations: [RegisterComponent, LoginComponent],
     providers: [AuthService, PersistanceService]

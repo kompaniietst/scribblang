@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
+import { BackendErrorsInterface } from '../../interfaces/backendErrors.interface';
 import { registerAction } from '../../store/actions/register.action';
-import { isSubmittingSelector } from '../../store/selectors';
+import { errorsSelector, isSubmittingSelector } from '../../store/selectors';
 
 @Component({
   selector: 'app-register',
@@ -13,12 +14,15 @@ import { isSubmittingSelector } from '../../store/selectors';
 export class RegisterComponent implements OnInit {
   form: FormGroup;
   isSubmitting$: Observable<boolean>;
+  error$: Observable<BackendErrorsInterface>;
 
   constructor(private store: Store) { }
 
   ngOnInit(): void {
     this.initializeForm();
+    
     this.isSubmitting$ = this.store.select(isSubmittingSelector);
+    this.error$ = this.store.select(errorsSelector);
   }
 
   initializeForm() {
@@ -35,5 +39,4 @@ export class RegisterComponent implements OnInit {
     const request = this.form.value;
     this.store.dispatch(registerAction({ request }));
   }
-
 }

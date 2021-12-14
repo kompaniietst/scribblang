@@ -11,6 +11,9 @@ import { Router } from "@angular/router";
 
 @Injectable()
 export class RegisterEffect {
+    constructor(private actions$: Actions, private authService: AuthService,
+        private persistanceService: PersistanceService, private router: Router) { }
+
     register$ = createEffect(() =>
         this.actions$.pipe(
             ofType(registerAction),
@@ -29,9 +32,6 @@ export class RegisterEffect {
                         })
                     )
             })))
-
-    constructor(private actions$: Actions, private authService: AuthService,
-        private persistanceService: PersistanceService, private router: Router) { }
 
     redirectAfterSubmit$ = createEffect(() =>
         this.actions$.pipe(

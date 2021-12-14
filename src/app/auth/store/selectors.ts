@@ -8,3 +8,6 @@ export const isSubmittingSelector = createSelector
 
 export const isLoggedInSelector = createSelector
     (authFeatureSelector, (authState: AuthStateInterface) => authState.isLoggedIn);
+
+export const errorsSelector = createSelector
+    (authFeatureSelector, (authState: AuthStateInterface) => authState.validationErrors);

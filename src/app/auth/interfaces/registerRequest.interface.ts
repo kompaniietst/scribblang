@@ -1,5 +1,5 @@
 import { UserInterface } from "./user.interface";
 
-export interface RequestInterface extends UserInterface {
+export interface RegisterRequestInterface extends UserInterface {
     password: string;
 }

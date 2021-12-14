@@ -5,11 +5,9 @@ import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { of } from "rxjs";
 import { AuthService } from "../../services/auth.service";
 import { CurrentUserInterface } from "../../interfaces/currentUser.interface";
-import { BackendErrorsInterface } from "../../interfaces/backendErrors.interface";
 import { HttpErrorResponse } from "@angular/common/http";
 import { PersistanceService } from "../../services/persistance.service";
 import { Router } from "@angular/router";
-import { dispatch } from "rxjs/internal/observable/pairs";
 
 @Injectable()
 export class RegisterEffect {

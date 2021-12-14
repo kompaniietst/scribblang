@@ -4,6 +4,7 @@ import { registerAction, registerFailAction, registerSuccessAction } from "./act
 
 const initialState: AuthStateInterface = {
     isSubmitting: false,
+    isLoggedIn: false,
     currentUser: null,
     validationErrors: null
 }
@@ -16,12 +17,14 @@ const authReducer = createReducer(
     })),
     on(registerSuccessAction, (state: AuthStateInterface, action) => ({
         ...state,
-        isSubmitting:false,
+        isSubmitting: false,
+        isLoggedIn: true,
         currentUser: action.currentUser,
     })),
     on(registerFailAction, (state: AuthStateInterface, action) => ({
         ...state,
         currentUser: null,
+        isLoggedIn: false,
         validationErrors: action.errors
     }))
 );

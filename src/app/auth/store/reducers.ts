@@ -1,4 +1,3 @@
-import { state } from "@angular/animations";
 import { Action, createReducer, on } from "@ngrx/store";
 import { AuthStateInterface } from "../interfaces/authState.interface";
 import { registerAction, registerFailAction, registerSuccessAction } from "./actions/register.action";
@@ -17,7 +16,8 @@ const authReducer = createReducer(
     })),
     on(registerSuccessAction, (state: AuthStateInterface, action) => ({
         ...state,
-        currentUser: action.currentUser
+        isSubmitting:false,
+        currentUser: action.currentUser,
     })),
     on(registerFailAction, (state: AuthStateInterface, action) => ({
         ...state,

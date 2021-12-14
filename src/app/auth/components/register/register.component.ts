@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { AuthService } from '../../services/auth.service';
 import { registerAction } from '../../store/actions/register.action';
 
 @Component({
@@ -12,7 +11,7 @@ import { registerAction } from '../../store/actions/register.action';
 export class RegisterComponent implements OnInit {
   form: FormGroup;
 
-  constructor(private store: Store, private s: AuthService) { }
+  constructor(private store: Store) { }
 
   ngOnInit(): void {
     this.initializeForm();

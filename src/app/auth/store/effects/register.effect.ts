@@ -7,6 +7,7 @@ import { AuthService } from "../../services/auth.service";
 import { CurrentUserInterface } from "../../interfaces/currentUser.interface";
 import { BackendErrorsInterface } from "../../interfaces/backendErrors.interface";
 import { HttpErrorResponse } from "@angular/common/http";
+import { PersistanceService } from "../../services/persistance.service";
 
 @Injectable()
 export class RegisterEffect {
@@ -18,6 +19,8 @@ export class RegisterEffect {
                     .pipe(
                         map((currentUser: CurrentUserInterface) => {
                             console.log('c', currentUser);
+                            this.persistanceService.set("accessToken", currentUser.token);
+
                             return registerSuccessAction({ currentUser });
                         }),
                         catchError((errorResponse: HttpErrorResponse) => {
@@ -27,6 +30,7 @@ export class RegisterEffect {
                     )
             })))
 
-    constructor(private actions$: Actions, private authService: AuthService) { }
+    constructor(private actions$: Actions, private authService: AuthService,
+        private persistanceService: PersistanceService) { }
 }
 

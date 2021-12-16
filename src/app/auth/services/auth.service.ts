@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { environment } from "src/environments/environment";
 import { CurrentUserInterface } from "../interfaces/currentUser.interface";
 import { LoginRequestInterface } from "../interfaces/loginRequest.interface";
@@ -21,5 +21,11 @@ export class AuthService {
         const url = environment.apiUrl + 'api/auth/signin';
 
         return this.http.post<ResponseInterface>(url, data);
+    }
+
+    getCurrentUser(): Observable<CurrentUserInterface> {
+        const url = environment.apiUrl + 'api/currentuser';
+
+        return this.http.get<CurrentUserInterface>(url);
     }
 }

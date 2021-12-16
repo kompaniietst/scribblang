@@ -12,6 +12,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { RegisterEffect } from "./store/effects/register.effect";
 import { PersistanceService } from "./services/persistance.service";
 import { LoginEffect } from "./store/effects/login.effect";
+import { GetCurrentUserEffect } from "./store/effects/getCurrentUser.effect";
 
 const routes: Routes = [
     { path: "register", component: RegisterComponent },
@@ -25,7 +26,7 @@ const routes: Routes = [
         ReactiveFormsModule,
         HttpClientModule,
         StoreModule.forFeature('auth', reducers),
-        EffectsModule.forFeature([RegisterEffect, LoginEffect])
+        EffectsModule.forFeature([RegisterEffect, LoginEffect, GetCurrentUserEffect])
     ],
     declarations: [RegisterComponent, LoginComponent],
     providers: [AuthService, PersistanceService]

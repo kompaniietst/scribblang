@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: "https://scribblang-back.herokuapp.com/"
+  // apiUrl: "http://localhost:5000/"
 };
 
 /*

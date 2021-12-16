@@ -6,11 +6,13 @@ import { of } from "rxjs";
 import { catchError, map, switchMap, tap } from "rxjs/operators";
 import { CurrentUserInterface } from "../../interfaces/currentUser.interface";
 import { AuthService } from "../../services/auth.service";
+import { PersistanceService } from "../../services/persistance.service";
 import { loginAction, loginFailAction, loginSuccessAction } from "../actions/login.action";
 
 @Injectable()
 export class LoginEffect {
-    constructor(private actions$: Actions, private authService: AuthService, private router: Router) { }
+    constructor(private actions$: Actions, private authService: AuthService, private router: Router,
+        private persistenceService: PersistanceService) { }
 
     login$ = createEffect(() =>
         this.actions$.pipe(
@@ -19,6 +21,9 @@ export class LoginEffect {
                 return this.authService.login(request)
                     .pipe(
                         map((currentUser: CurrentUserInterface) => {
+                            this.persistenceService.set("accessToken", currentUser.token);
+                            console.log('cc', currentUser);
+
                             return loginSuccessAction({ currentUser });
                         }),
                         catchError((errorResponse: HttpErrorResponse) =>

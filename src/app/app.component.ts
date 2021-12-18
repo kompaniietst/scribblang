@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
   currentUser$: Observable<CurrentUserInterface>;
   isLoggedIn$: Observable<boolean>;
 
-  constructor(private store: Store, private routr:Router) { }
+  constructor(private store: Store, private routr: Router) { }
 
   ngOnInit() {
     this.currentUser$ = this.store.select(currentUserSelector);
@@ -26,9 +26,6 @@ export class AppComponent implements OnInit {
   }
 
   logout() {
-    console.log('in app');
-    
     this.store.dispatch(logoutAction());
   }
-
 }

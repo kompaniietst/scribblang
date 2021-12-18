@@ -5,7 +5,7 @@ import { AuthService } from "../../services/auth.service";
 import { getCurrentUserAction, getCurrentUserFailAction, getCurrentUserSuccessAction } from "../actions/getCurrentUser.action";
 import { CurrentUserInterface } from "../../interfaces/currentUser.interface";
 import { of } from "rxjs";
-import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
+import { HttpErrorResponse } from "@angular/common/http";
 import { PersistanceService } from "../../services/persistance.service";
 
 @Injectable()
@@ -16,6 +16,7 @@ export class GetCurrentUserEffect {
         this.actions$.pipe(
             ofType(getCurrentUserAction),
             switchMap(() => {
+
                 const token = this.persistaceService.get('accessToken');
 
                 if (!token)
@@ -24,13 +25,14 @@ export class GetCurrentUserEffect {
                 return this.authService.getCurrentUser()
                     .pipe(
                         map((currentUser: CurrentUserInterface) => {
-                            console.log('ll', currentUser);
-
+                            console.log('currentUser', currentUser);
                             return getCurrentUserSuccessAction({ currentUser: currentUser })
                         }),
 
-
-                        catchError((err: HttpErrorResponse) => of(getCurrentUserFailAction({ errors: err.error.message }))
+                        catchError((err: HttpErrorResponse) =>
+                            of(getCurrentUserFailAction({ errors: err.error.message }))
                         ))
-            })))
+            })
+        )
+    )
 }

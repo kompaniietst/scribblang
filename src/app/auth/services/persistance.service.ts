@@ -13,4 +13,8 @@ export class PersistanceService {
 
         return JSON.parse(data);
     }
+
+    removeItem(key: string) {
+        window.localStorage.removeItem("accessToken");
+    }
 }

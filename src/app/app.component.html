@@ -1,5 +1,6 @@
 <div *ngIf="isLoggedIn$ | async">
     <b>{{ (currentUser$ | async)?.username }}</b>
+    <div (click)="logout()">Logout</div>
     <hr>
 </div>
 <a routerLink="/">Home</a>

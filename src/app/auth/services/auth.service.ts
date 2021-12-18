@@ -6,10 +6,11 @@ import { CurrentUserInterface } from "../interfaces/currentUser.interface";
 import { LoginRequestInterface } from "../interfaces/loginRequest.interface";
 import { RegisterRequestInterface } from "../interfaces/registerRequest.interface";
 import { ResponseInterface } from "../interfaces/response.interface";
+import { PersistanceService } from "./persistance.service";
 
 @Injectable()
 export class AuthService {
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private persistanceService: PersistanceService) { }
 
     register(data: RegisterRequestInterface): Observable<CurrentUserInterface> {
         const url = environment.apiUrl + 'api/auth/signup';
@@ -21,6 +22,10 @@ export class AuthService {
         const url = environment.apiUrl + 'api/auth/signin';
 
         return this.http.post<ResponseInterface>(url, data);
+    }
+
+    logout() {
+        this.persistanceService.removeItem("accessToken");
     }
 
     getCurrentUser(): Observable<CurrentUserInterface> {

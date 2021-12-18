@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { CurrentUserInterface } from './auth/interfaces/currentUser.interface';
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit {
   currentUser$: Observable<CurrentUserInterface>;
   isLoggedIn$: Observable<boolean>;
 
-  constructor(private store: Store) { }
+  constructor(private store: Store, private routr:Router) { }
 
   ngOnInit() {
     this.currentUser$ = this.store.select(currentUserSelector);
@@ -29,4 +30,5 @@ export class AppComponent implements OnInit {
     
     this.store.dispatch(logoutAction());
   }
+
 }

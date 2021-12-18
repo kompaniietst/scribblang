@@ -14,10 +14,17 @@ import { PersistanceService } from "./services/persistance.service";
 import { LoginEffect } from "./store/effects/login.effect";
 import { GetCurrentUserEffect } from "./store/effects/getCurrentUser.effect";
 import { LogoutEffect } from "./store/effects/logout.effect";
+import { AuthGuard } from "./guards/auth.guard";
 
 const routes: Routes = [
-    { path: "register", component: RegisterComponent },
-    { path: "login", component: LoginComponent },
+    {
+        path: "register", component: RegisterComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path: "login", component: LoginComponent,
+        canActivate: [AuthGuard]
+    },
 ]
 
 @NgModule({
@@ -35,6 +42,6 @@ const routes: Routes = [
         ])
     ],
     declarations: [RegisterComponent, LoginComponent],
-    providers: [AuthService, PersistanceService]
+    providers: [AuthService, PersistanceService, AuthGuard]
 })
 export class AuthModule { }

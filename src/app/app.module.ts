@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthInterceptor } from './shared/intercetors/auth.interceptor';
+import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 
 
 @NgModule({
@@ -33,7 +33,7 @@ import { AuthInterceptor } from './shared/intercetors/auth.interceptor';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

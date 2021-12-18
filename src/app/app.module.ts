@@ -10,6 +10,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
+import { EntityTreeModule } from './container/entityTree/entityTree.module';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
     }),
     EffectsModule.forRoot([]),
 
-    AuthModule
+    AuthModule,
+    EntityTreeModule
   ],
   providers: [
     {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { getAllEntitiesAction } from '../../store/actions/getAllEntities.action';
+import { treeSelector } from '../../store/selectors';
 
 @Component({
   selector: 'app-container',
@@ -13,6 +14,8 @@ export class ContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(getAllEntitiesAction());
+    this.store.select(treeSelector)
+      .subscribe(x => console.log("X", x))
   }
 
 }

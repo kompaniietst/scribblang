@@ -3,10 +3,9 @@
     <div (click)="logout()">Logout</div>
     <hr>
 </div>
-<a routerLink="/">Home</a>
 <span *ngIf="!(isLoggedIn$ | async)">
     <a routerLink="login">Login</a>
     <a routerLink="register">Register</a>
 </span>
-<h1>Scribblang</h1>
+
 <router-outlet></router-outlet>

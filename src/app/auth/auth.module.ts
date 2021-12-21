@@ -15,6 +15,7 @@ import { LoginEffect } from "./store/effects/login.effect";
 import { GetCurrentUserEffect } from "./store/effects/getCurrentUser.effect";
 import { LogoutEffect } from "./store/effects/logout.effect";
 import { AuthGuard } from "./guards/auth.guard";
+import { SharedModule } from "../shared/shared.module";
 
 const routes: Routes = [
     {
@@ -39,7 +40,9 @@ const routes: Routes = [
             LoginEffect,
             GetCurrentUserEffect,
             LogoutEffect
-        ])
+        ]),
+
+        SharedModule
     ],
     declarations: [RegisterComponent, LoginComponent],
     providers: [AuthService, PersistanceService, AuthGuard]

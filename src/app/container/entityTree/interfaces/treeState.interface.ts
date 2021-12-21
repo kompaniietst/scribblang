@@ -1,5 +1,9 @@
+import { BackendErrorsInterface } from "src/app/shared/interfaces/backendErrors.interface";
 import { SystemEntityInterface } from "./systemEntity.interface";
 
 export interface TreeStateInterface {
-    entites: SystemEntityInterface[]
+    isLoading: boolean,
+    entites: SystemEntityInterface[],
+    validationErrors: BackendErrorsInterface
+
 }

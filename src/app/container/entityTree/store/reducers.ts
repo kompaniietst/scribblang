@@ -1,21 +1,31 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import { TreeStateInterface } from "../interfaces/treeState.interface";
-import { getAllEntitiesAction, getAllEntitiesSuccessAction } from "./actions/getAllEntities.action";
+import { getAllEntitiesAction, getAllEntitiesFailAction, getAllEntitiesSuccessAction } from "./actions/getAllEntities.action";
 
 const initialState: TreeStateInterface = {
-    entites: null
+    isLoading: null,
+    entites: null,
+    validationErrors: null
 }
 
 const treeReducer = createReducer(
     initialState,
     on(getAllEntitiesAction,
         (state: TreeStateInterface) => ({
-            ...state
+            ...state,
+            isLoading: true
         })),
     on(getAllEntitiesSuccessAction,
         (state: TreeStateInterface, action) => ({
             ...state,
-            entites: action.entities
+            entites: action.entities,
+            isLoading: false
+        })),
+    on(getAllEntitiesFailAction,
+        (state: TreeStateInterface, action) => ({
+            ...state,
+            validationErrors: action.errors,
+            isLoading: false
         })),
 )
 

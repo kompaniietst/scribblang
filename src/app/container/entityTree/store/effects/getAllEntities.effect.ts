@@ -1,3 +1,4 @@
+import { HttpErrorResponse, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
@@ -14,16 +15,18 @@ export class GetAllEntitiesEffect {
         this.actions$.pipe(
             ofType(getAllEntitiesAction),
             switchMap(() => {
+                console.log('in effe');
+                
                 return this.entityTreeService.getAllSystemEntities()
                     .pipe(
                         map((entities: SystemEntityInterface[]) => {
-                            console.log('entities ', entities);
-
+                            console.log('EFFECT ', entities);
+if(entities)
                             return getAllEntitiesSuccessAction({ entities });
                         }),
-                        catchError((e) => {
-                            console.log('e', e);
-                            return of(getAllEntitiesFailAction());
+                        catchError((errorResponse: HttpErrorResponse) => {
+                            console.log('e', errorResponse);
+                            return of(getAllEntitiesFailAction({ errors: errorResponse.error.message }));
                         })
                     )
             })

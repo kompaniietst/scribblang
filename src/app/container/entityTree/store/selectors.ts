@@ -5,5 +5,14 @@ export const treeFeatureSelector = createFeatureSelector('tree');
 
 export const treeSelector = createSelector
     (treeFeatureSelector,
-        (treeState: TreeStateInterface) => treeState.entites
+        (treeState: TreeStateInterface) => treeState.entites)
+
+export const treeErrorsSelector = createSelector
+    (treeFeatureSelector,
+        (treeState: TreeStateInterface) => treeState.validationErrors
+    )
+
+export const isLoadingSelector = createSelector
+    (treeFeatureSelector,
+        (treeState: TreeStateInterface) => treeState.isLoading
     )

@@ -1,4 +1,5 @@
 import { createAction, props } from "@ngrx/store";
+import { BackendErrorsInterface } from "src/app/shared/interfaces/backendErrors.interface";
 import { SystemEntityInterface } from "../../interfaces/systemEntity.interface";
 
 export const getAllEntitiesAction = createAction(
@@ -11,6 +12,6 @@ export const getAllEntitiesSuccessAction = createAction(
 )
 
 export const getAllEntitiesFailAction = createAction(
-    '[Tree] get all entities success',
-    // props<{ errors?}>()
+    '[Tree] get all entities fail',
+    props<{ errors: BackendErrorsInterface }>()
 )

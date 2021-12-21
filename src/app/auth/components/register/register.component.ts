@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { BackendErrorsInterface } from '../../interfaces/backendErrors.interface';
+import { BackendErrorsInterface } from '../../../shared/interfaces/backendErrors.interface';
 import { registerAction } from '../../store/actions/register.action';
 import { errorsSelector, isSubmittingSelector } from '../../store/selectors';
 

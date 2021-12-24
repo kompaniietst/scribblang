@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import { catchError, delay, tap } from 'rxjs/operators';
 import { BackendErrorsInterface } from 'src/app/shared/interfaces/backendErrors.interface';
 import { SystemEntityInterface } from '../../interfaces/systemEntity.interface';
 import { EntitySubjectService } from '../../services/entitySubject.service';
@@ -153,6 +153,9 @@ export class ContainerComponent implements OnInit {
   systemEntites$: Observable<SystemEntityInterface[]>;
   errors$: Observable<BackendErrorsInterface>;
   isLoading$: Observable<boolean>;
+  openedDirectoriesIds: string[] = [];
+  path = [];
+  children: [];
 
   constructor(private store: Store, private router: Router, private entitySubjectService: EntitySubjectService) { }
 
@@ -165,8 +168,43 @@ export class ContainerComponent implements OnInit {
         console.log("entities", entities)
       }));
 
-    this.isLoading$ = this.store.select(isLoadingSelector);
+    this.isLoading$ = this.store.pipe(
+      select(isLoadingSelector))
 
+  }
+
+  checkEntity(name: string, path: string[], item) {
+
+    if (item.type.name === 'list') {
+      this.router.navigate(["list/" + item._id]);
+    }
+
+    this.path = path;
+
+    console.log('ITEM: ', item, item.children.map(c => c.name));
+    this.children = item.children.map(c => c.name);
+
+    this.entitySubjectService.systemEntityPath.next(this.path);
+
+  }
+
+  toggleEntity = (id: string) =>
+    this.isDirectoryOpen(id)
+      ? this.closeDirectory(id)
+      : this.openDirectory(id);
+
+
+  isDirectoryOpen = (id: string) =>
+    this.openedDirectoriesIds.includes(id);
+
+  openDirectory = (id: string) =>
+    this.openedDirectoriesIds.push(id);
+
+
+  closeDirectory(id: string) {
+    const index = this.openedDirectoriesIds.indexOf(id);
+
+    this.openedDirectoriesIds.splice(index, 1);
   }
 
 }

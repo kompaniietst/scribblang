@@ -1,6 +1,5 @@
 <h1>System</h1>
-
-<app-preloader *ngIf="isLoading"></app-preloader>
+<app-preloader *ngIf="isLoading$ | async"></app-preloader>
 
 <div class="errors">{{ (errors$ | async) }}</div>
 
@@ -11,14 +10,14 @@
 
 <ng-template #recursiveListTmpl let-list="list">
     <li *ngFor="let item of list; let i = index"
-        (click)="checkEntity(item.name, item.path, item);$event.stopPropagation();item.hidden = !item.hidden; ">
+        (click)="checkEntity(item.name, item.path, item);$event.stopPropagation(); toggleEntity(item._id)">
 
   
 
 
 
         <div *ngIf="item.type?.name === 'folder'">
-            <div style="width:40px; float:left">
+            <div style="width:40px;" class="li">
                 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                     xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 309.267 309.267"
                     style="enable-background:new 0 0 309.267 309.267;" xml:space="preserve">
@@ -52,7 +51,7 @@
 
         <b>{{ item.name }}</b> <small> &nbsp;&nbsp;&nbsp; {{ item.type?.name }}</small>
         <hr>
-        <div *ngIf="item.hidden">
+        <div *ngIf="openedDirectoriesIds.includes(item._id)">
             <ul *ngIf="item.children.length > 0">
                 <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: item.children }"></ng-container>
             </ul>

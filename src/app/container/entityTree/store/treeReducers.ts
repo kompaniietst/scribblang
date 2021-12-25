@@ -1,8 +1,4 @@
-import { state } from "@angular/animations";
 import { Action, createReducer, on } from "@ngrx/store";
-import { stat } from "fs";
-import { SystemEntityInterface } from "../interfaces/systemEntity.interface";
-import { SystemEntityRequestInterface } from "../interfaces/systemEntityRequest.interface";
 import { TreeStateInterface } from "../interfaces/treeState.interface";
 import { addEntityAction } from "./actions/addEntity.action";
 import { getAllEntitiesAction, getAllEntitiesFailAction, getAllEntitiesSuccessAction } from "./actions/getAllEntities.action";

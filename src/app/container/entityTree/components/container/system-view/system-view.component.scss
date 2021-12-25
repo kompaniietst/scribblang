@@ -1,0 +1,21 @@
+ul li {
+    list-style: none;
+}
+.active {
+    color: black;
+    font-weight: bold;
+}
+svg {
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+}
+.item-container {
+    display: flex;
+    align-items: center;
+}
+.hint {
+    color: #bcbcbc;
+    font-size: 70%;
+    font-weight: normal;
+}

@@ -1,20 +1,22 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { catchError, delay, tap } from 'rxjs/operators';
 import { BackendErrorsInterface } from 'src/app/shared/interfaces/backendErrors.interface';
-import { SystemEntityInterface } from '../../interfaces/systemEntity.interface';
-import { EntitySubjectService } from '../../services/entitySubject.service';
-import { getAllEntitiesAction } from '../../store/actions/getAllEntities.action';
-import { isLoadingSelector, treeErrorsSelector, treeSelector } from '../../store/selectors';
+import { SystemEntityInterface } from '../../../interfaces/systemEntity.interface';
+import { EntitySubjectService } from '../../../services/entitySubject.service';
+import { getAllEntitiesAction } from '../../../store/actions/getAllEntities.action';
+import { isLoadingSelector, treeErrorsSelector, treeSelector } from '../../../store/selectors';
 
 @Component({
-  selector: 'app-container',
-  templateUrl: './container.component.html',
-  styleUrls: ['./container.component.scss']
+  selector: 'app-system-view',
+  templateUrl: './system-view.component.html',
+  styleUrls: ['./system-view.component.scss']
 })
-export class ContainerComponent implements OnInit {
+export class SystemViewComponent implements OnInit {
+  activeItem: string;
   //   systemEntites$: Observable<SystemEntityInterface[]>;
   //   errors$: Observable<BackendErrorsInterface>;
   //   isLoading$: Observable<boolean>;
@@ -171,20 +173,39 @@ export class ContainerComponent implements OnInit {
     this.isLoading$ = this.store.pipe(
       select(isLoadingSelector))
 
+    this.entitySubjectService.systemEntityPath.subscribe(x => console.log('path: ', x))
+  }
+
+  definePath(item: SystemEntityInterface) {
+    console.log(' ');
+
+    console.log(item.path);
+    const newPath = [...item.path, item.name]
+    this.entitySubjectService.systemEntityPath.next(newPath);
+  }
+
+  removeFromPath(item: string) {
+    const i = this.path.indexOf(item);
+    this.path.length = i + 1;
+
+
+    // const newPath = this.path.splice();
+    // return newPath;s
   }
 
   checkEntity(name: string, path: string[], item) {
+    // console.log('item', item);
+
 
     if (item.type.name === 'list') {
       this.router.navigate(["list/" + item._id]);
     }
 
-    this.path = path;
+    // this.path = path;
 
-    console.log('ITEM: ', item, item.children.map(c => c.name));
+    // console.log('ITEM: ', item, item.children.map(c => c.name));
     this.children = item.children.map(c => c.name);
 
-    this.entitySubjectService.systemEntityPath.next(this.path);
 
   }
 
@@ -205,6 +226,12 @@ export class ContainerComponent implements OnInit {
     const index = this.openedDirectoriesIds.indexOf(id);
 
     this.openedDirectoriesIds.splice(index, 1);
+  }
+
+  callAddForm() {
+    // this.router.navigate(["add"]);
+    console.log();
+
   }
 
 }

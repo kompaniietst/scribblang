@@ -6,6 +6,7 @@ import { CurrentUserInterface } from './auth/interfaces/currentUser.interface';
 import { getCurrentUserAction } from './auth/store/actions/getCurrentUser.action';
 import { logoutAction } from './auth/store/actions/logout.action';
 import { currentUserSelector, isLoggedInSelector } from './auth/store/selectors';
+import { getAllEntitiesFailAction } from './container/entityTree/store/actions/getAllEntities.action';
 
 @Component({
   selector: 'app-root',
@@ -27,5 +28,6 @@ export class AppComponent implements OnInit {
 
   logout() {
     this.store.dispatch(logoutAction());
+    this.store.dispatch(getAllEntitiesFailAction({ errors: {} }));
   }
 }

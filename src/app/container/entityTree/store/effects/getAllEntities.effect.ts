@@ -30,6 +30,5 @@ export class GetAllEntitiesEffect {
                         })
                     )
             }),
-            delay(1000)
         ))
 }

@@ -22,7 +22,7 @@ export class RegisterEffect {
                     .pipe(
                         map((currentUser: CurrentUserInterface) => {
                             console.log('c', currentUser);
-                            this.persistanceService.set("accessToken", currentUser.token);
+                            // this.persistanceService.set("accessToken", currentUser.token);
 
                             return registerSuccessAction({ currentUser });
                         }),

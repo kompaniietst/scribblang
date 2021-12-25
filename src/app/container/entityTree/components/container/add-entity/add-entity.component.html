@@ -1,0 +1,11 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <input type="text" placeholder="name" formControlName="name">
+
+    <label>Folder</label>
+    <input type="radio" name="type" value="folder" formControlName="type">
+
+    <label>List</label>
+    <input type="radio" name="type" value="list" formControlName="type">
+
+    <button>Add</button>
+</form>

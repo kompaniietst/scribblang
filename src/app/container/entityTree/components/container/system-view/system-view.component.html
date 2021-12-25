@@ -1,0 +1,156 @@
+<h1>System</h1>
+<app-preloader *ngIf="isLoading$ | async"></app-preloader>
+
+<div class="errors">{{ (errors$ | async) }}</div>
+
+<!-- <button (click)="callAddForm()">Add</button> -->
+<app-add-entity [path]="path"></app-add-entity>
+<router-outlet></router-outlet>
+
+<ul>
+    <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: (systemEntites$ | async)?.children }">
+    </ng-container>
+</ul>
+
+<ng-template #recursiveListTmpl let-list="list">
+    <li *ngFor="let item of list; let i = index" (click)="checkEntity(item.name, item.path, item);$event.stopPropagation(); 
+        definePath(item);
+        activeItem = item?._id;
+        toggleEntity(item._id)">
+
+
+
+        <div [ngClass]="{'active': activeItem === item?._id}" class="item-container">
+            <div *ngIf="item.type?.name === 'folder'">
+                <div>
+
+                    <div *ngIf="!openedDirectoriesIds.includes(item._id) && item.children.length > 0">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 288 227.6"
+                            style="enable-background:new 0 0 288 227.6;" xml:space="preserve">
+                            <style type="text/css">
+                                .st0 {
+                                    fill: #FFC843;
+                                }
+                            </style>
+                            <path class="st0" d="M232.3,19.4H103.6v-8.5c0-6-4.9-10.9-10.9-10.9H30.4c-6,0-10.9,4.9-10.9,10.9v8.5h-3.3C7.3,19.4,0,26.7,0,35.7
+               v174.8c0,9,7.3,16.3,16.3,16.3h216c9,0,16.3-7.3,16.3-16.3V35.7C248.5,26.7,241.2,19.4,232.3,19.4z" />
+                        </svg>
+                    </div>
+
+                    <div *ngIf="openedDirectoriesIds.includes(item._id) && item.children.length > 0">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 288 227.6"
+                            style="enable-background:new 0 0 288 227.6;" xml:space="preserve">
+                            <style type="text/css">
+                                .st0 {
+                                    fill: #E0B03B;
+                                }
+
+                                .st1 {
+                                    fill: #FFFFFF;
+                                }
+
+                                .st2 {
+                                    fill: #FFC843;
+                                }
+                            </style>
+                            <g>
+                                <path class="st0"
+                                    d="M232.3,19.4H103.6v-8.5c0-6-4.9-10.9-10.9-10.9H30.4c-6,0-10.9,4.9-10.9,10.9v8.5h-3.3C7.3,19.4,0,26.7,0,35.7
+                        v174.8c0,9,7.3,16.3,16.3,16.3h216c9,0,16.3-7.3,16.3-16.3V35.7C248.5,26.7,241.2,19.4,232.3,19.4z" />
+                                <rect x="23.2" y="35" class="st1" width="202.1" height="176.1" />
+                                <path class="st2" d="M252.4,210.9c-2.1,8.7-11.2,15.8-20.2,15.8h-216c-9,0-14.5-7.1-12.4-15.8L38.5,69.9
+                        c2.1-8.7,11.2-15.8,20.2-15.8h216c9,0,14.5,7.1,12.4,15.8L252.4,210.9z" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div *ngIf="openedDirectoriesIds.includes(item._id) && item.children.length === 0">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 288 227.6"
+                            style="enable-background:new 0 0 288 227.6;" xml:space="preserve">
+                            <style type="text/css">
+                                .st0 {
+                                    fill: #E0B03B;
+                                }
+
+                                .st1 {
+                                    fill: #FFDA88;
+                                }
+
+                                .st2 {
+                                    fill: #FFC843;
+                                }
+                            </style>
+                            <path class="st0" d="M232.3,19.7H103.6v-8.5c0-6-4.9-10.9-10.9-10.9H30.4c-6,0-10.9,4.9-10.9,10.9v8.5h-3.3C7.3,19.7,0,27,0,36
+	v174.8c0,9,7.3,16.3,16.3,16.3h216c9,0,16.3-7.3,16.3-16.3V36C248.5,27,241.2,19.7,232.3,19.7z" />
+                            <path class="st1" d="M213,209.9H30c-6.6,0-12-5.4-12-12v-145c0-6.6,5.4-12,12-12h183c6.6,0,12,5.4,12,12v145
+	C225,204.5,219.6,209.9,213,209.9z" />
+                            <path class="st2" d="M252.4,210.9c-2.1,8.7-11.2,15.8-20.2,15.8h-216c-9,0-14.5-7.1-12.4-15.8L38.5,69.9
+	c2.1-8.7,11.2-15.8,20.2-15.8h216c9,0,14.5,7.1,12.4,15.8L252.4,210.9z" />
+                            <path class="st1" d="M238.7,202.1c-1.9,6.5-10,11.8-18,11.8H31.5c-8,0-13-5.3-11.1-11.8L51.3,81.4c1.9-6.5,10-11.8,18-11.8h189.1
+	c8,0,13,5.3,11.1,11.8L238.7,202.1z" />
+                        </svg>
+                    </div>
+
+                    <div *ngIf="!openedDirectoriesIds.includes(item._id) && item.children.length === 0">
+                        <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 288 227.6"
+                            style="enable-background:new 0 0 288 227.6;" xml:space="preserve">
+                            <style type="text/css">
+                                .st0 {
+                                    fill: #FFC843;
+                                }
+
+                                .st1 {
+                                    fill: #FFDA88;
+                                }
+                            </style>
+                            <path class="st0" d="M232.3,19.4H103.6v-8.5c0-6-4.9-10.9-10.9-10.9H30.4c-6,0-10.9,4.9-10.9,10.9v8.5h-3.3C7.3,19.4,0,26.7,0,35.7
+                   v174.8c0,9,7.3,16.3,16.3,16.3h216c9,0,16.3-7.3,16.3-16.3V35.7C248.5,26.7,241.2,19.4,232.3,19.4z" />
+                            <path class="st1" d="M213,209.6H30c-6.6,0-12-5.4-12-12v-145c0-6.6,5.4-12,12-12h183c6.6,0,12,5.4,12,12v145
+                   C225,204.2,219.6,209.6,213,209.6z" />
+                        </svg>
+                    </div>
+
+                   
+                </div>
+            </div>
+
+            <div *ngIf="item.type?.name === 'list'" class="item-container">
+                <div>
+                    <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 455 455"
+                        style="enable-background:new 0 0 455 455;" xml:space="preserve">
+                        <style type="text/css">
+                            .st_0 {
+                                fill: #e0f2f1;
+                            }
+
+                            .st_1 {
+                                fill: #29b6f6;
+                            }
+                        </style>
+                        <polygon class="st_0" points="285.8,111.7 285.8,0 227.5,0 227.5,455 397.5,455 397.5,111.7 " />
+                        <rect x="57.5" class="st_0" width="203.5" height="455" />
+                        <polygon class="st_1" points="397.5,111.7 285.8,0 285.8,111.7 " />
+                    </svg>
+                </div>
+            </div>
+
+            <div>
+                <div> {{ item.name }} </div>
+                <div *ngIf="openedDirectoriesIds.includes(item._id) && item.children.length === 0" class="hint">
+                    Folder is empty
+                </div>
+            </div>
+        </div>
+        <!-- <small> &nbsp;&nbsp;&nbsp; {{ item.type?.name }}</small> -->
+        <div *ngIf="openedDirectoriesIds.includes(item._id)">
+            <ul *ngIf="item.children.length > 0">
+                <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: item.children }"></ng-container>
+            </ul>
+        </div>
+    </li>
+</ng-template>

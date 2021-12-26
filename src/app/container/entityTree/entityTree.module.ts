@@ -15,6 +15,7 @@ import { entityReducers } from "./store/entityReducers";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AddEntityEffect } from "./store/effects/addEntity.effect";
 import { UIModule } from "src/app/ui/ui.module";
+import { DeleteEntityEffect } from "./store/effects/deleteEntity.effect";
 
 const routes: Routes = [
     {
@@ -34,7 +35,8 @@ const routes: Routes = [
         StoreModule.forFeature('entity', entityReducers),
         EffectsModule.forFeature([
             GetAllEntitiesEffect,
-            AddEntityEffect
+            AddEntityEffect,
+            DeleteEntityEffect
         ]),
         ReactiveFormsModule,
 

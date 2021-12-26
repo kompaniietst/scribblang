@@ -20,7 +20,7 @@ export class AddEntityComponent implements OnInit {
   constructor(private entitySubject: EntitySubjectService, private store: Store) {
     this.entitySubject.systemEntityPath
       .subscribe((path: string[]) => this.path = path);
- }
+  }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -40,10 +40,13 @@ export class AddEntityComponent implements OnInit {
       ...this.form.value,
       path: this.path,
     }
+    console.log('request', request);
 
     this.store.dispatch(addEntityAction({ request }))
-    this.store.dispatch(getAllEntitiesAction());
-    console.log('=');
 
+
+  }
+  refresh() {
+    this.store.dispatch(getAllEntitiesAction());
   }
 }

@@ -20,4 +20,10 @@ export class EntityTreeService {
 
         return this.http.post<SystemEntityInterface>(url, data);
     }
+
+    deleteEntity(id: string) {
+        const url = environment.apiUrl + `api/systemEntity/delete/${id}`;
+
+        return this.http.delete(url);
+    }
 }

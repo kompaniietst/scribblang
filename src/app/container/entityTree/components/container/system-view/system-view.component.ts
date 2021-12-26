@@ -7,6 +7,7 @@ import { catchError, delay, tap } from 'rxjs/operators';
 import { BackendErrorsInterface } from 'src/app/shared/interfaces/backendErrors.interface';
 import { SystemEntityInterface } from '../../../interfaces/systemEntity.interface';
 import { EntitySubjectService } from '../../../services/entitySubject.service';
+import { deleteEntityAction } from '../../../store/actions/deleteEntity.action';
 import { getAllEntitiesAction } from '../../../store/actions/getAllEntities.action';
 import { isLoadingSelector, treeErrorsSelector, treeSelector } from '../../../store/selectors';
 
@@ -194,8 +195,8 @@ export class SystemViewComponent implements OnInit {
   }
 
   toggleEntity = (entity: SystemEntityInterface) => {
-    if (entity.type.type === 'list') {
-      this.router.navigate(["list/" + entity.type.id]);
+    if (entity.type === 'list') {
+      this.router.navigate(["list/" + entity._id]);
     }
 
     this.isDirectoryOpen(entity._id)
@@ -221,5 +222,23 @@ export class SystemViewComponent implements OnInit {
     console.log();
 
   }
+
+  removeEntity(id: string) {
+    console.log('removeEntity');
+    
+    this.store.dispatch(deleteEntityAction({ id }))
+  }
+
+  isDirectoryFilledClosed = (entity: SystemEntityInterface) =>
+    !this.openedDirectoriesIds.includes(entity._id) && entity.children.length > 0
+
+  isDirectoryFilledOpened = (entity: SystemEntityInterface) =>
+    this.openedDirectoriesIds.includes(entity._id) && entity.children.length > 0
+
+  isDirectoryEmptyClosed = (entity: SystemEntityInterface) =>
+    !this.openedDirectoriesIds.includes(entity._id) && entity.children.length === 0
+
+  isDirectoryEmptyOpened = (entity: SystemEntityInterface) =>
+    this.openedDirectoriesIds.includes(entity._id) && entity.children.length === 0
 
 }

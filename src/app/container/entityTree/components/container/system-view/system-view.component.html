@@ -3,7 +3,9 @@
 
 <div class="errors">{{ (errors$ | async) }}</div>
 
+<!-- Add entity form component -->
 <app-add-entity></app-add-entity>
+
 <router-outlet></router-outlet>
 
 <ul>
@@ -18,43 +20,27 @@
         toggleEntity(item)">
 
         <div [ngClass]="{'active': activeItem === item?._id}" class="item-container">
-            <div *ngIf="item.type?.name === 'folder'">
+            <div *ngIf="item.type === 'folder'">
                 <div>
-
-                    <div *ngIf="!openedDirectoriesIds.includes(item._id) && item.children.length > 0">
-                        <svg-folder></svg-folder>
-                    </div>
-
-                    <div *ngIf="openedDirectoriesIds.includes(item._id) && item.children.length > 0">
-                        <svg-opened-folder></svg-opened-folder>
-                    </div>
-
-                    <div *ngIf="openedDirectoriesIds.includes(item._id) && item.children.length === 0">
-                        <svg-empty-opened-folder></svg-empty-opened-folder>
-                    </div>
-
-                    <div *ngIf="!openedDirectoriesIds.includes(item._id) && item.children.length === 0">
-                        <svg-empty-folder></svg-empty-folder>
-                    </div>
-
-
+                    <svg-folder *ngIf="isDirectoryFilledClosed(item)"></svg-folder>
+                    <svg-opened-folder *ngIf="isDirectoryFilledOpened(item)"></svg-opened-folder>
+                    <svg-empty-opened-folder *ngIf="isDirectoryEmptyOpened(item)"></svg-empty-opened-folder>
+                    <svg-empty-folder *ngIf="isDirectoryEmptyClosed(item)"></svg-empty-folder>
                 </div>
             </div>
 
-            <div *ngIf="item.type?.name === 'list'" class="item-container">
-                <div>
-                    <svg-list></svg-list>
-                </div>
+            <div *ngIf="item.type === 'list'" class="item-container">
+                <svg-list></svg-list>
             </div>
 
             <div>
                 <div> {{ item.name }} </div>
-                <div *ngIf="openedDirectoriesIds.includes(item._id) && item.children.length === 0" class="hint">
+                <div *ngIf="isDirectoryEmptyOpened(item)" class="hint">
                     Folder is empty
                 </div>
             </div>
+            <button (click)="removeEntity(item._id);$event.stopPropagation(); ">X</button>
         </div>
-        <!-- <small> &nbsp;&nbsp;&nbsp; {{ item.type?.name }}</small> -->
         <div *ngIf="openedDirectoriesIds.includes(item._id)">
             <ul *ngIf="item.children.length > 0">
                 <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: item.children }"></ng-container>

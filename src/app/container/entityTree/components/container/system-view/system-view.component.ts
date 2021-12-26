@@ -193,27 +193,15 @@ export class SystemViewComponent implements OnInit {
     // return newPath;s
   }
 
-  checkEntity(name: string, path: string[], item) {
-    // console.log('item', item);
-
-
-    if (item.type.name === 'list') {
-      this.router.navigate(["list/" + item._id]);
+  toggleEntity = (entity: SystemEntityInterface) => {
+    if (entity.type.type === 'list') {
+      this.router.navigate(["list/" + entity.type.id]);
     }
 
-    // this.path = path;
-
-    // console.log('ITEM: ', item, item.children.map(c => c.name));
-    this.children = item.children.map(c => c.name);
-
-
+    this.isDirectoryOpen(entity._id)
+      ? this.closeDirectory(entity._id)
+      : this.openDirectory(entity._id);
   }
-
-  toggleEntity = (id: string) =>
-    this.isDirectoryOpen(id)
-      ? this.closeDirectory(id)
-      : this.openDirectory(id);
-
 
   isDirectoryOpen = (id: string) =>
     this.openedDirectoriesIds.includes(id);

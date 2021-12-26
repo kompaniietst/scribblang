@@ -16,20 +16,11 @@ import { getAllEntitiesAction } from '../../../store/actions/getAllEntities.acti
 export class AddEntityComponent implements OnInit {
   form: FormGroup;
   path: string[] = [];
-  uid: string;
 
   constructor(private entitySubject: EntitySubjectService, private store: Store) {
     this.entitySubject.systemEntityPath
       .subscribe((path: string[]) => this.path = path);
-
-    this.store.select(currentUserSelector)
-      .subscribe((currentUser: CurrentUserInterface) => {
-        console.log('currrrr   ', currentUser);
-        if (currentUser)
-          this.uid = currentUser.uid;
-      })
-
-  }
+ }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -48,10 +39,9 @@ export class AddEntityComponent implements OnInit {
     const request: SystemEntityRequestInterface = {
       ...this.form.value,
       path: this.path,
-      uid: this.uid
     }
 
-    this.store.dispatch(addEntityAction({ request }));
+    this.store.dispatch(addEntityAction({ request }))
     this.store.dispatch(getAllEntitiesAction());
     console.log('=');
 

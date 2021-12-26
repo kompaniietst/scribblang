@@ -14,6 +14,7 @@ import { AddEntityComponent } from "./components/container/add-entity/add-entity
 import { entityReducers } from "./store/entityReducers";
 import { ReactiveFormsModule } from "@angular/forms";
 import { AddEntityEffect } from "./store/effects/addEntity.effect";
+import { UIModule } from "src/app/ui/ui.module";
 
 const routes: Routes = [
     {
@@ -37,7 +38,8 @@ const routes: Routes = [
         ]),
         ReactiveFormsModule,
 
-        SharedModule
+        SharedModule,
+        UIModule
     ],
     declarations: [
         SystemViewComponent,

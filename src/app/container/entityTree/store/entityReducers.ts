@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import { EntityStateInterface } from "../interfaces/entityState.interface";
-import { addEntityAction, addEntityFailAction, addEntitySuccessAction } from "./actions/addEntity.action";
+import { addEntityAction, addEntityFailAction, addEntitySuccessAction, updateEntityAction, updateEntityFailAction, updateEntitySuccessAction } from "./actions/addEntity.action";
 import { deleteEntityAction, deleteEntityFailAction, deleteEntitySuccessAction } from "./actions/deleteEntity.action";
 
 const initialState: EntityStateInterface = {
@@ -28,6 +28,24 @@ const entityReducer = createReducer(
             entity: null
         })),
 
+    on(updateEntityAction,
+        (state: EntityStateInterface) => ({
+            ...state,
+            isLoading: true
+        })),
+    on(updateEntitySuccessAction,
+        (state: EntityStateInterface, action) => ({
+            ...state,
+            isLoading: false,
+            entity: action.entity
+        })),
+    on(updateEntityFailAction,
+        (state: EntityStateInterface) => ({
+            ...state,
+            isLoading: false,
+            entity: null
+        })),
+
     on(deleteEntityAction,
         (state: EntityStateInterface) => ({
             ...state,
@@ -41,7 +59,6 @@ const entityReducer = createReducer(
     on(deleteEntityFailAction,
         (state: EntityStateInterface) => ({
             ...state,
-            // isLoading: false/
         }))
 )
 

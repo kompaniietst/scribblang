@@ -40,6 +40,7 @@
                 </div>
             </div>
             <button (click)="removeEntity(item._id);$event.stopPropagation(); ">X</button>
+            <button (click)="updateEntity(item._id);$event.stopPropagation(); ">E</button>
         </div>
         <div *ngIf="openedDirectoriesIds.includes(item._id)">
             <ul *ngIf="item.children.length > 0">

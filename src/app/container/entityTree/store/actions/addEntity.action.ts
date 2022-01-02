@@ -17,3 +17,18 @@ export const addEntityFailAction = createAction(
     '[System] add entity fail',
     props<{ errors: BackendErrorsInterface }>()
 )
+
+export const updateEntityAction = createAction(
+    '[System] update entity',
+    props<{ request: SystemEntityRequestInterface }>()
+)
+
+export const updateEntitySuccessAction = createAction(
+    '[System] update entity success',
+    props<{ entity: SystemEntityInterface }>()
+)
+
+export const updateEntityFailAction = createAction(
+    '[System] update entity fail',
+    props<{ errors: BackendErrorsInterface }>()
+)

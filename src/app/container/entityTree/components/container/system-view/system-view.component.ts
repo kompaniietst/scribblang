@@ -1,6 +1,6 @@
 import { ThrowStmt } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { catchError, delay, tap } from 'rxjs/operators';
@@ -18,141 +18,6 @@ import { isLoadingSelector, treeErrorsSelector, treeSelector } from '../../../st
 })
 export class SystemViewComponent implements OnInit {
   activeItem: string;
-  //   systemEntites$: Observable<SystemEntityInterface[]>;
-  //   errors$: Observable<BackendErrorsInterface>;
-  //   isLoading$: Observable<boolean>;
-  //   path = [];
-  //   children;
-
-  //   constructor(private store: Store, private router: Router, private entitySubjectService: EntitySubjectService) { }
-
-  //   ngOnInit(): void {
-  //     this.store.dispatch(getAllEntitiesAction());
-  //     // this.store.select(treeSelector)
-  //     //   .subscribe(x => console.log("X", x));
-
-  //     this.systemEntites$ = this.store.select(treeSelector)
-  //       .pipe(tap((entities: any) => {
-  //         console.log("entities", entities)
-  //         if (entities)
-  //           this.children = entities.children.map(c => c.name); console.log(this.children);
-  //       }));
-
-  //     this.errors$ = this.store.select(treeErrorsSelector);
-
-  //     this.isLoading$ = this.store.select(isLoadingSelector);
-  //   }
-
-
-
-  //   checkEntity(name: string, path: string[], item) {
-  //     console.log(' ');
-
-  //     // console.log(name);
-  //     // console.log(path);
-  //     // console.log(item);
-
-  //     console.log(' ');
-  //     // this.path = path ? this.path + path[];
-  //     // console.log('K=', k);
-  //     // this.clicked = name;
-
-  //     if (item.type.name === 'list') {
-  //       this.router.navigate(["list/" + item._id]);
-  //     }
-
-  //     this.path = path;
-
-  //     console.log('ITEM: ', item, item.children.map(c => c.name));
-  //     this.children = item.children.map(c => c.name);
-  //     // console.log('path', this.path);
-  //     // this.path = path ? [...path] : [];
-
-  //     this.path = [...path, item.name]
-  //     // .push(item.name);
-  //     // // console.log('PATH ', this.path);
-  //     this.entitySubjectService.systemEntityPath.next(this.path);
-
-  //   }
-
-  //   switchHidden(item, prop) {
-  //     console.log('item',item);
-
-  //     return item.hidden = {...item, hidden: prop}
-  //   }
-
-  // }
-
-
-
-
-
-
-
-  //   systemEntites$: Observable<SystemEntityInterface[]>;
-  //   path: string[] = [];
-  //   opened = false;
-  //   children;
-  //   constructor(
-  //     private store: Store,
-  //     // private vocabularyService: VocabularyService,
-  //     private systemEntityService: EntitySubjectService,
-  //     private router: Router
-  //   ) { }
-
-  //   ngOnInit() {
-  //     this.store.dispatch(getAllEntitiesAction());
-
-
-  //     // this.store.select(treeSelector)
-  //     //   .subscribe(x => console.log('ent ', x));
-
-
-  //     this.systemEntites$ = this.store.select(treeSelector)
-  //       .pipe(
-
-  //         tap((entities: any) => {
-
-  //           console.log('ent ', entities)
-
-  //           if (entities)
-  //             this.children = entities.children.map(c => c.name); console.log(this.children);
-
-  //         }));
-
-  //     //     entities.map((entity: SystemEntityInterface) => {
-  //     //         return { ...entity, name: entity.name }
-  //     //     })
-  //   }
-
-  //   checkEntity(name: string, path: string[], item) {
-  //     // this.path = path ? this.path + path[];
-  //     // console.log('K=', k);
-  //     // this.clicked = name;
-  //     // item = { ...item }
-
-  //     if (item.type.name === 'list') {
-  //       this.router.navigate(["list/" + item._id]);
-  //     }
-
-  //     this.path = [];
-
-  //     console.log('ITEM: ', item, item.children.map(c => c.name));
-  //     this.children = item.children.map(c => c.name);
-  //     // console.log('path', this.path);
-  //     // this.path = path ? [...path] : [];
-
-  //     // this.path = Object.assign([], name);
-  //     this.path.push(name);
-  //     // // console.log('PATH ', this.path);
-  //     this.systemEntityService.systemEntityPath.next(this.path);
-
-  //   }
-  //   if() {
-
-  //   }
-  // }
-
   systemEntites$: Observable<SystemEntityInterface[]>;
   errors$: Observable<BackendErrorsInterface>;
   isLoading$: Observable<boolean>;
@@ -160,15 +25,16 @@ export class SystemViewComponent implements OnInit {
   path = [];
   children: [];
 
-  constructor(private store: Store, private router: Router, private entitySubjectService: EntitySubjectService) { }
-
+  constructor(
+    private store: Store,
+    private router: Router,
+    private entitySubjectService: EntitySubjectService) { }
 
   ngOnInit() {
     this.store.dispatch(getAllEntitiesAction());
 
     this.systemEntites$ = this.store.select(treeSelector)
       .pipe(tap((entities: any) => {
-        console.log("entities", entities)
       }));
 
     this.isLoading$ = this.store.pipe(
@@ -178,8 +44,6 @@ export class SystemViewComponent implements OnInit {
   }
 
   definePath(item: SystemEntityInterface) {
-    console.log(' ');
-
     console.log(item.path);
     const newPath = [...item.path, item.name]
     this.entitySubjectService.systemEntityPath.next(newPath);
@@ -188,10 +52,6 @@ export class SystemViewComponent implements OnInit {
   removeFromPath(item: string) {
     const i = this.path.indexOf(item);
     this.path.length = i + 1;
-
-
-    // const newPath = this.path.splice();
-    // return newPath;s
   }
 
   toggleEntity = (entity: SystemEntityInterface) => {
@@ -217,16 +77,12 @@ export class SystemViewComponent implements OnInit {
     this.openedDirectoriesIds.splice(index, 1);
   }
 
-  callAddForm() {
-    // this.router.navigate(["add"]);
-    console.log();
-
+  removeEntity(id: string) {
+    this.store.dispatch(deleteEntityAction({ id }))
   }
 
-  removeEntity(id: string) {
-    console.log('removeEntity');
-    
-    this.store.dispatch(deleteEntityAction({ id }))
+  updateEntity(id: string) {
+    this.router.navigate([`system/${id}`]);
   }
 
   isDirectoryFilledClosed = (entity: SystemEntityInterface) =>

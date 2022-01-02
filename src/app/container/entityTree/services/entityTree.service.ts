@@ -21,9 +21,21 @@ export class EntityTreeService {
         return this.http.post<SystemEntityInterface>(url, data);
     }
 
+    updateEntity(data: SystemEntityRequestInterface): Observable<SystemEntityInterface> {
+        const url = environment.apiUrl + `api/systemEntity/update/${data._id}`;
+
+        return this.http.post<SystemEntityInterface>(url, data);
+    }
+
     deleteEntity(id: string) {
         const url = environment.apiUrl + `api/systemEntity/delete/${id}`;
 
         return this.http.delete(url);
+    }
+
+    getEntityById(id: string): Observable<SystemEntityInterface> {
+        const url = environment.apiUrl + `api/systemEntity/${id}`;
+
+        return this.http.get<SystemEntityInterface>(url);
     }
 }

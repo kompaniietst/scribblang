@@ -16,13 +16,11 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { AddEntityEffect } from "./store/effects/addEntity.effect";
 import { UIModule } from "src/app/ui/ui.module";
 import { DeleteEntityEffect } from "./store/effects/deleteEntity.effect";
+import { UpdateEntityEffect } from "./store/effects/updateEntity.effect";
 
 const routes: Routes = [
-    {
-        path: 'system', component: SystemViewComponent,
-        // children: [
-        // ]
-    },
+    { path: 'system', component: SystemViewComponent },
+    { path: 'system/:id', component: SystemViewComponent },
     { path: "add", component: AddEntityComponent },
     { path: 'list/:id', component: ListComponent },
 ]
@@ -36,6 +34,7 @@ const routes: Routes = [
         EffectsModule.forFeature([
             GetAllEntitiesEffect,
             AddEntityEffect,
+            UpdateEntityEffect,
             DeleteEntityEffect
         ]),
         ReactiveFormsModule,

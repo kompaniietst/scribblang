@@ -1,0 +1,21 @@
+:host {
+    background: #e8ecee;
+    display: block;
+    padding: 30px;
+    form {
+        border: 1px solid white;
+        padding: 0 20px 20px 20px;
+    }
+}
+
+:host ::ng-deep input {
+    outline: none;
+    background: white;
+    border: none;
+    padding: 12px;
+    border-radius: 3px;
+    min-width: 250px;
+    input:focus {
+        border: none;
+    }
+}

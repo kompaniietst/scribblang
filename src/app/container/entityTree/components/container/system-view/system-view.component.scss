@@ -1,16 +1,72 @@
+.tree-container {
+    display: flex;
+    .tree {
+        flex: 6;
+    }
+    app-add-entity {
+        flex: 1;
+        margin-left: 45px;
+        margin-top: 25px;
+    }
+}
+
 ul li {
     list-style: none;
 }
-.active {
-    color: black;
-    font-weight: bold;
-}
+
 .item-container {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+    &.active {
+        padding: 10px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        margin: 15px 0 5px;
+        background: linear-gradient(to right, #f8f8f8, transparent);
+    }
+    .item {
+        display: flex;
+        align-items: center;
+    }
 }
 .hint {
     color: #bcbcbc;
     font-size: 70%;
     font-weight: normal;
+}
+.buttons-group {
+    display: flex;
+    .remove-btn,
+    .edit-btn {
+        color: white;
+        min-width: 25px;
+        min-height: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 3px;
+        border-radius: 30px;
+        padding: 0 3px;
+        background: #f2f2f2;
+        transition: 0.3s linear;
+        &:hover {
+            transition: 0.3s linear;
+            cursor: pointer;
+            background: #ffda88;
+        }
+    }
+    .remove-btn {
+        transition: 0.3s linear;
+        background: #f2f2f2;
+        &:hover {
+            transition: 0.3s linear;
+            background: #ff678a;
+        }
+    }
+}
+svg {
+    width: 15px;
 }

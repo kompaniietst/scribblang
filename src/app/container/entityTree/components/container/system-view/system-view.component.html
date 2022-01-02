@@ -1,51 +1,67 @@
 <h1>System</h1>
-<app-preloader *ngIf="isLoading$ | async"></app-preloader>
+<div class="tree-container">
+    <app-preloader *ngIf="isLoading$ | async"></app-preloader>
 
-<div class="errors">{{ (errors$ | async) }}</div>
-
-<!-- Add entity form component -->
-<app-add-entity></app-add-entity>
-
-<router-outlet></router-outlet>
-
-<ul>
-    <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: (systemEntites$ | async)?.children }">
-    </ng-container>
-</ul>
-
-<ng-template #recursiveListTmpl let-list="list">
-    <li *ngFor="let item of list; let i = index" (click)="$event.stopPropagation(); 
-        definePath(item);
-        activeItem = item?._id;
-        toggleEntity(item)">
-
-        <div [ngClass]="{'active': activeItem === item?._id}" class="item-container">
-            <div *ngIf="item.type === 'folder'">
-                <div>
-                    <svg-folder *ngIf="isDirectoryFilledClosed(item)"></svg-folder>
-                    <svg-opened-folder *ngIf="isDirectoryFilledOpened(item)"></svg-opened-folder>
-                    <svg-empty-opened-folder *ngIf="isDirectoryEmptyOpened(item)"></svg-empty-opened-folder>
-                    <svg-empty-folder *ngIf="isDirectoryEmptyClosed(item)"></svg-empty-folder>
+    <div class="tree">
+        <div class="errors">{{ (errors$ | async) }}</div>
+    
+        <ul>
+            <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: (systemEntites$ | async)?.children }">
+            </ng-container>
+        </ul>
+    
+        <ng-template #recursiveListTmpl let-list="list">
+            <li *ngFor="let item of list; let i = index" (click)="$event.stopPropagation(); 
+            definePath(item);
+            activeItem = item?._id;
+            toggleEntity(item)">
+    
+                <div [ngClass]="{'active': activeItem === item?._id}" class="item-container">
+                    <div class="item">
+                        <div *ngIf="item.type === 'folder'">
+                            <div>
+                                <svg-folder *ngIf="isDirectoryFilledClosed(item)"></svg-folder>
+                                <svg-opened-folder *ngIf="isDirectoryFilledOpened(item)"></svg-opened-folder>
+                                <svg-empty-opened-folder *ngIf="isDirectoryEmptyOpened(item)"></svg-empty-opened-folder>
+                                <svg-empty-folder *ngIf="isDirectoryEmptyClosed(item)"></svg-empty-folder>
+                            </div>
+                        </div>
+    
+                        <div *ngIf="item.type === 'list'" class="item-container">
+                            <svg-list></svg-list>
+                        </div>
+    
+                        <div>
+                            <div> {{ item.name }} </div>
+                            <div *ngIf="isDirectoryEmptyOpened(item)" class="hint">
+                                Folder is empty
+                            </div>
+                        </div>
+                    </div>
+                    <div class="buttons-group">
+                        <div (click)="removeEntity(item._id);$event.stopPropagation(); " class="remove-btn">
+                            <svg fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px"
+                                height="30px">
+                                <path
+                                    d="M 7 4 C 6.744125 4 6.4879687 4.0974687 6.2929688 4.2929688 L 4.2929688 6.2929688 C 3.9019687 6.6839688 3.9019687 7.3170313 4.2929688 7.7070312 L 11.585938 15 L 4.2929688 22.292969 C 3.9019687 22.683969 3.9019687 23.317031 4.2929688 23.707031 L 6.2929688 25.707031 C 6.6839688 26.098031 7.3170313 26.098031 7.7070312 25.707031 L 15 18.414062 L 22.292969 25.707031 C 22.682969 26.098031 23.317031 26.098031 23.707031 25.707031 L 25.707031 23.707031 C 26.098031 23.316031 26.098031 22.682969 25.707031 22.292969 L 18.414062 15 L 25.707031 7.7070312 C 26.098031 7.3170312 26.098031 6.6829688 25.707031 6.2929688 L 23.707031 4.2929688 C 23.316031 3.9019687 22.682969 3.9019687 22.292969 4.2929688 L 15 11.585938 L 7.7070312 4.2929688 C 7.5115312 4.0974687 7.255875 4 7 4 z" />
+                            </svg>
+                        </div>
+                        <div (click)="updateEntity(item._id);$event.stopPropagation(); " class="edit-btn">
+                            <svg fill="#fff" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" width="30px"
+                                height="30px">
+                                <path
+                                    d="M 22.828125 3 C 22.316375 3 21.804562 3.1954375 21.414062 3.5859375 L 19 6 L 24 11 L 26.414062 8.5859375 C 27.195062 7.8049375 27.195062 6.5388125 26.414062 5.7578125 L 24.242188 3.5859375 C 23.851688 3.1954375 23.339875 3 22.828125 3 z M 17 8 L 5.2597656 19.740234 C 5.2597656 19.740234 6.1775313 19.658 6.5195312 20 C 6.8615312 20.342 6.58 22.58 7 23 C 7.42 23.42 9.6438906 23.124359 9.9628906 23.443359 C 10.281891 23.762359 10.259766 24.740234 10.259766 24.740234 L 22 13 L 17 8 z M 4 23 L 3.0566406 25.671875 A 1 1 0 0 0 3 26 A 1 1 0 0 0 4 27 A 1 1 0 0 0 4.328125 26.943359 A 1 1 0 0 0 4.3378906 26.939453 L 4.3632812 26.931641 A 1 1 0 0 0 4.3691406 26.927734 L 7 26 L 5.5 24.5 L 4 23 z" />
+                            </svg>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <div *ngIf="item.type === 'list'" class="item-container">
-                <svg-list></svg-list>
-            </div>
-
-            <div>
-                <div> {{ item.name }} </div>
-                <div *ngIf="isDirectoryEmptyOpened(item)" class="hint">
-                    Folder is empty
+                <div *ngIf="openedDirectoriesIds.includes(item._id)">
+                    <ul *ngIf="item.children.length > 0">
+                        <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: item.children }"></ng-container>
+                    </ul>
                 </div>
-            </div>
-            <button (click)="removeEntity(item._id);$event.stopPropagation(); ">X</button>
-            <button (click)="updateEntity(item._id);$event.stopPropagation(); ">E</button>
-        </div>
-        <div *ngIf="openedDirectoriesIds.includes(item._id)">
-            <ul *ngIf="item.children.length > 0">
-                <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ list: item.children }"></ng-container>
-            </ul>
-        </div>
-    </li>
-</ng-template>
+            </li>
+        </ng-template>
+    </div>
+    <app-add-entity></app-add-entity>
+</div>

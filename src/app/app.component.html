@@ -1,11 +1,13 @@
-<div *ngIf="isLoggedIn$ | async">
-    <b>{{ (currentUser$ | async)?.username }}</b>
-    <div (click)="logout()">Logout</div>
-    <hr>
+<div class="container">
+    <div *ngIf="isLoggedIn$ | async">
+        <b>{{ (currentUser$ | async)?.username }}</b>
+        <div (click)="logout()">Logout</div>
+        <hr>
+    </div>
+    <span *ngIf="!(isLoggedIn$ | async)">
+        <a routerLink="login">Login</a>
+        <a routerLink="register">Register</a>
+    </span>
+    <a routerLink="system">System</a>
+    <router-outlet></router-outlet>
 </div>
-<span *ngIf="!(isLoggedIn$ | async)">
-    <a routerLink="login">Login</a>
-    <a routerLink="register">Register</a>
-</span>
-<a routerLink="system">System</a>
-<router-outlet></router-outlet>

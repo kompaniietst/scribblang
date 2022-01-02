@@ -1,12 +1,29 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <input type="text" placeholder="name" formControlName="name">
+<app-form [formGroup]="form" [formTitle]="'Add entity'" (submitted)="onSubmit()">
 
-    <label>Folder</label>
-    <input type="radio" name="type" value="folder" formControlName="type">
+    <div class="view-path">
+        <strong>{{ view_path}} {{newEntityName}}</strong>
+    </div>
 
-    <label>List</label>
-    <input type="radio" name="type" value="list" formControlName="type">
+    <input type="text" placeholder="Enter name" formControlName="name" [(ngModel)]="newEntityName" [ngModelOptions]="{standalone: true}" >
+
+    <div class="radio-group">
+        <label class="container">Folder
+            <input type="radio" checked="checked" name="type" value="folder" formControlName="type">
+            <span class="checkmark"></span>
+        </label>
+
+        <label class="container">List
+            <input type="radio" checked="checked" name="type" value="list" formControlName="type">
+            <span class="checkmark"></span>
+        </label>
+    </div>
+
+    <!-- <label>Folder</label>
+    <input type="radio" name="type" value="folder" formControlName="type"> -->
+
+    <!-- <label>List</label>
+    <input type="radio" name="type" value="list" formControlName="type"> -->
 
     <button>Save</button>
     <button type="button" (click)="refresh()">refresh</button>
-</form>
+</app-form>

@@ -21,6 +21,8 @@ export class AddEntityComponent implements OnInit {
   editMode: boolean = false;
   id: string;
   path: string[] = [];
+  view_path: string = "";
+  newEntityName = "";
 
   constructor(
     private entitySubject: EntitySubjectService,
@@ -28,7 +30,10 @@ export class AddEntityComponent implements OnInit {
     private route: ActivatedRoute) {
 
     this.entitySubject.systemEntityPath
-      .subscribe((path: string[]) => this.path = path);
+      .subscribe((path: string[]) => {
+        this.path = path;
+        this.view_path = path.join(" / ") + " /"
+      });
   }
 
   ngOnInit(): void {
@@ -61,11 +66,16 @@ export class AddEntityComponent implements OnInit {
   initializeForm() {
     this.form = new FormGroup({
       name: new FormControl(),
-      type: new FormControl()
+      type: new FormControl("list")
     });
   }
 
   onSubmit() {
+    if (!this.form.value.name || !this.form.value.type) {
+      console.log('Fill all fields');
+      return;
+    }
+
     const request: SystemEntityRequestInterface = {
       ...this.form.value,
       path: this.path,
@@ -81,5 +91,10 @@ export class AddEntityComponent implements OnInit {
 
   refresh() {
     this.store.dispatch(getAllEntitiesAction());
+  }
+
+  createEntity(event) {
+    console.log('Event ', event);
+
   }
 }

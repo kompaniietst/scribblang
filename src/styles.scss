@@ -1,4 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+    font-family: system-ui;
+}
+
 .errors {
     color: red;
+}
+
+button {
+    background: #0075ff;
+    padding: 10px 15px;
+    border-radius: 3px;
+    border: none;
+    color: white;
+    min-width: 100px;
 }

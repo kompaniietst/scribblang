@@ -12,7 +12,7 @@ import { GetAllEntitiesEffect } from "./store/effects/getAllEntities.effect";
 import { treeReducers } from "./store/treeReducers";
 import { AddEntityComponent } from "./components/container/add-entity/add-entity.component";
 import { entityReducers } from "./store/entityReducers";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AddEntityEffect } from "./store/effects/addEntity.effect";
 import { UIModule } from "src/app/ui/ui.module";
 import { DeleteEntityEffect } from "./store/effects/deleteEntity.effect";
@@ -37,7 +37,8 @@ const routes: Routes = [
             UpdateEntityEffect,
             DeleteEntityEffect
         ]),
-        ReactiveFormsModule,
+        ReactiveFormsModule, FormsModule,
+
 
         SharedModule,
         UIModule

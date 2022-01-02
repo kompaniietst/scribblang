@@ -4,7 +4,8 @@
         <strong>{{ view_path}} {{newEntityName}}</strong>
     </div>
 
-    <input type="text" placeholder="Enter name" formControlName="name" [(ngModel)]="newEntityName" [ngModelOptions]="{standalone: true}" >
+    <input type="text" placeholder="Enter name" formControlName="name" [(ngModel)]="newEntityName" >
+    <!-- <input type="text" placeholder="Enter name" formControlName="name" [(ngModel)]="newEntityName" [ngModelOptions]="{standalone: true}" > -->
 
     <div class="radio-group">
         <label class="container">Folder

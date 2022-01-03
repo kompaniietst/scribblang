@@ -23,7 +23,7 @@ import { Component } from "@angular/core";
         }
 
         .st2 {
-            fill: #FFC843;
+            fill: #fff;
         }
 
         svg {

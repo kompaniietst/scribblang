@@ -66,7 +66,7 @@ export class AddEntityComponent implements OnInit {
   initializeForm() {
     this.form = new FormGroup({
       name: new FormControl(),
-      type: new FormControl("list")
+      type: new FormControl("folder")
     });
   }
 
@@ -95,6 +95,9 @@ export class AddEntityComponent implements OnInit {
 
   createEntity(event) {
     console.log('Event ', event);
+  }
 
+  cleanPath() {
+    this.view_path = "";
   }
 }

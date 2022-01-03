@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { Observable, of, throwError } from "rxjs";
+import { catchError, map } from "rxjs/operators";
 import { environment } from "src/environments/environment";
 import { CurrentUserInterface } from "../interfaces/currentUser.interface";
 import { LoginRequestInterface } from "../interfaces/loginRequest.interface";

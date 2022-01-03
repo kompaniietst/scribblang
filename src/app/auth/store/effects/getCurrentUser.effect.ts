@@ -29,8 +29,11 @@ export class GetCurrentUserEffect {
                             return getCurrentUserSuccessAction({ currentUser: currentUser })
                         }),
 
-                        catchError((err: HttpErrorResponse) =>
-                            of(getCurrentUserFailAction({ errors: err.error.message }))
+                        catchError((err: HttpErrorResponse) => {
+                            console.log('err', err);
+
+                            return of(getCurrentUserFailAction({ errors: err.error.message }))
+                        }
                         ))
             })
         )

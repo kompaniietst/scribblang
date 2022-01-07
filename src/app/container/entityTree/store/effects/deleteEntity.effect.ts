@@ -7,6 +7,7 @@ import { SystemEntityInterface } from "../../interfaces/systemEntity.interface";
 import { EntityTreeService } from "../../services/entityTree.service";
 import { addEntityAction, addEntityFailAction, addEntitySuccessAction } from "../actions/addEntity.action";
 import { deleteEntityAction, deleteEntityFailAction, deleteEntitySuccessAction } from "../actions/deleteEntity.action";
+import { getAllEntitiesAction } from "../actions/getAllEntities.action";
 
 @Injectable()
 export class DeleteEntityEffect {
@@ -16,17 +17,13 @@ export class DeleteEntityEffect {
         this.actions$.pipe(
             ofType(deleteEntityAction),
             switchMap(({ id }) => {
-                console.log('id for removing: ', id);
-
                 return this.entityTreeService.deleteEntity(id)
                     .pipe(
-                        map((entity: SystemEntityInterface) => {
-                            console.log('after deleting!', entity);
-                            return deleteEntitySuccessAction();
-                        }),
+                        map(() => deleteEntitySuccessAction()),
                         catchError((errorResponse: HttpErrorResponse) =>
-                            of(deleteEntityFailAction({ errors: errorResponse.error.message })))
-                    )
-            })
+                            of(deleteEntityFailAction({ errors: errorResponse.error.message }))))
+            }),
+            ofType(deleteEntitySuccessAction),
+            map(() => getAllEntitiesAction())
         ))
 }

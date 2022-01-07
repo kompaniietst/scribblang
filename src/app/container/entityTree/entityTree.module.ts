@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, NgModule } from "@angular/core";
+import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
@@ -37,8 +37,8 @@ const routes: Routes = [
             UpdateEntityEffect,
             DeleteEntityEffect
         ]),
-        ReactiveFormsModule, FormsModule,
-
+        ReactiveFormsModule,
+        FormsModule,
 
         SharedModule,
         UIModule

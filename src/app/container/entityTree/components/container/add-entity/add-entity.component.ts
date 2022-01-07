@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
-import { concatMap, flatMap } from 'rxjs/operators';
+import { flatMap } from 'rxjs/operators';
 import { SystemEntityInterface } from '../../../interfaces/systemEntity.interface';
 import { SystemEntityRequestInterface } from '../../../interfaces/systemEntityRequest.interface';
 import { EntitySubjectService } from '../../../services/entitySubject.service';
 import { EntityTreeService } from '../../../services/entityTree.service';
 import { addEntityAction, updateEntityAction } from '../../../store/actions/addEntity.action';
-import { getAllEntitiesAction } from '../../../store/actions/getAllEntities.action';
+import { isEntityUpdatedSelector } from '../../../store/selectors';
 
 @Component({
   selector: 'app-add-entity',
@@ -34,6 +34,7 @@ export class AddEntityComponent implements OnInit {
         this.path = path;
         this.view_path = path.join(" / ") + " /"
       });
+
   }
 
   ngOnInit(): void {
@@ -48,7 +49,7 @@ export class AddEntityComponent implements OnInit {
         }))
 
       .subscribe((entity: SystemEntityInterface) => {
-        console.log('XXX ', entity);
+        console.log('entity for edit: ', entity);
 
         this.id = entity._id;
         const name = entity.name;
@@ -71,6 +72,8 @@ export class AddEntityComponent implements OnInit {
   }
 
   onSubmit() {
+    console.log('on sub');
+
     if (!this.form.value.name || !this.form.value.type) {
       console.log('Fill all fields');
       return;
@@ -89,15 +92,10 @@ export class AddEntityComponent implements OnInit {
       : this.store.dispatch(addEntityAction({ request }))
   }
 
-  refresh() {
-    this.store.dispatch(getAllEntitiesAction());
-  }
+  createEntity = (event) => console.log('Event ', event);
 
-  createEntity(event) {
-    console.log('Event ', event);
-  }
-
-  cleanPath() {
+  clearPath = () => {
     this.view_path = "";
+    this.path = [];
   }
 }

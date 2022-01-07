@@ -17,7 +17,7 @@ import { isLoadingSelector, treeErrorsSelector, treeSelector } from '../../../st
   styleUrls: ['./system-view.component.scss']
 })
 export class SystemViewComponent implements OnInit {
-  activeItem: string;
+  activeItemId: string;
   systemEntites$: Observable<SystemEntityInterface[]>;
   errors$: Observable<BackendErrorsInterface>;
   isLoading$: Observable<boolean>;
@@ -44,7 +44,6 @@ export class SystemViewComponent implements OnInit {
   }
 
   definePath(item: SystemEntityInterface) {
-    console.log(item.path);
     const newPath = [...item.path, item.name]
     this.entitySubjectService.systemEntityPath.next(newPath);
   }
@@ -85,6 +84,9 @@ export class SystemViewComponent implements OnInit {
     this.router.navigate([`system/${id}`]);
   }
 
+  isDirectoryOpened = (entity: SystemEntityInterface) =>
+    this.openedDirectoriesIds.includes(entity._id);
+
   isDirectoryFilledClosed = (entity: SystemEntityInterface) =>
     !this.openedDirectoriesIds.includes(entity._id) && entity.children.length > 0
 
@@ -96,5 +98,4 @@ export class SystemViewComponent implements OnInit {
 
   isDirectoryEmptyOpened = (entity: SystemEntityInterface) =>
     this.openedDirectoriesIds.includes(entity._id) && entity.children.length === 0
-
 }

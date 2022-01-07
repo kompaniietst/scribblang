@@ -15,7 +15,7 @@ import { Component } from "@angular/core";
     styles: [
         `
         .st_0 {
-            fill: #e0f2f1;
+            fill: #e7fbfa;
         }
 
         .st_1 {

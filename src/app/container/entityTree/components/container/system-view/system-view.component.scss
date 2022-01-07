@@ -2,6 +2,7 @@
     display: flex;
     .tree {
         flex: 6;
+        margin-left: -40px;
     }
     app-add-entity {
         flex: 1;
@@ -9,7 +10,10 @@
         margin-top: 25px;
     }
 }
-
+app-preloader {
+    height: 72px;
+    display: block;
+}
 ul li {
     list-style: none;
 }
@@ -67,4 +71,14 @@ ul li {
 }
 svg {
     width: 15px;
+}
+.entity-name {
+    display: flex;
+    .arrow {
+        margin-left: 15px;
+        fill: #4d4d4d;
+        svg {
+            width: 11px;
+        }
+    }
 }

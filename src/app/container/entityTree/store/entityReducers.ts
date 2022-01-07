@@ -5,7 +5,8 @@ import { deleteEntityAction, deleteEntityFailAction, deleteEntitySuccessAction }
 
 const initialState: EntityStateInterface = {
     isLoading: false,
-    entity: null
+    entity: null,
+    isUpdated: false
 }
 
 const entityReducer = createReducer(
@@ -59,7 +60,23 @@ const entityReducer = createReducer(
     on(deleteEntityFailAction,
         (state: EntityStateInterface) => ({
             ...state,
-        }))
+        })),
+
+    on(updateEntityAction,
+        (state: EntityStateInterface) => ({
+            ...state,
+            isUpdated: false
+        })),
+    on(updateEntitySuccessAction,
+        (state: EntityStateInterface) => ({
+            ...state,
+            isUpdated: true
+        })),
+    on(updateEntityFailAction,
+        (state: EntityStateInterface) => ({
+            ...state,
+            isUpdated: false
+        })),
 )
 
 

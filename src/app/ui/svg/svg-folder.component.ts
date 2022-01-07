@@ -8,7 +8,7 @@ import { Component } from "@angular/core";
         style="enable-background:new 0 0 288 227.6;" xml:space="preserve">
         <style type="text/css">
             .st0{
-                fill: #FFC843;
+                fill: #ffe197;
             }
         </style>
         <path class="st0" d="M232.3,19.4H103.6v-8.5c0-6-4.9-10.9-10.9-10.9H30.4c-6,0-10.9,4.9-10.9,10.9v8.5h-3.3C7.3,19.4,0,26.7,0,35.7

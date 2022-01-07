@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 * {
     font-family: system-ui;
+    color: #333;
 }
 
 .errors {
@@ -14,4 +15,5 @@ button {
     border: none;
     color: white;
     min-width: 100px;
+    cursor: pointer;
 }

@@ -1,0 +1,9 @@
+.words-container {
+    display: flex;
+    .words {
+        flex: 6;
+    }
+    app-form {
+        flex: 1;
+    }
+}

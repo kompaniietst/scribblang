@@ -2,6 +2,7 @@
     display: flex;
     .tree {
         flex: 6;
+        margin-left: -40px;
     }
     app-add-entity {
         flex: 1;
@@ -9,7 +10,10 @@
         margin-top: 25px;
     }
 }
-
+app-preloader {
+    height: 72px;
+    display: block;
+}
 ul li {
     list-style: none;
 }
@@ -20,12 +24,10 @@ ul li {
     justify-content: space-between;
     margin: 10px 0;
     &.active {
-        padding: 10px;
         border-radius: 5px;
         font-size: 16px;
         font-weight: bold;
-        margin: 15px 0 5px;
-        background: linear-gradient(to right, #f8f8f8, transparent);
+        // background: linear-gradient(to right, #f8f8f8, transparent);
     }
     .item {
         display: flex;
@@ -69,4 +71,14 @@ ul li {
 }
 svg {
     width: 15px;
+}
+.entity-name {
+    display: flex;
+    .arrow {
+        margin-left: 15px;
+        fill: #4d4d4d;
+        svg {
+            width: 11px;
+        }
+    }
 }

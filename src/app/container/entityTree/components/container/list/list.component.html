@@ -1,1 +1,22 @@
-<p>list works!</p>
+<h1>List name</h1>
+<div class="words-container">
+    <!-- <app-preloader *ngIf="isLoading$ | async"></app-preloader> -->
+
+    <div class="words">
+        <!-- <div class="errors">{{ (errors$ | async) }}</div> -->
+
+        WORDS
+    </div>
+    <app-form [formGroup]="form" [formTitle]="'Add new word'" (submitted)="onSubmit()">
+        <div>
+            <input type="text" placeholder="Word" formControlName="word">
+        </div>
+        <div>
+            <input type="text" placeholder="Translation" formControlName="translation">
+        </div>
+        <div>
+            <input type="text" placeholder="Transcription" formControlName="transcription">
+        </div>
+        <button>Save</button>
+    </app-form>
+</div>

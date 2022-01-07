@@ -5,5 +5,5 @@ export interface TreeStateInterface {
     isLoading: boolean,
     entites: SystemEntityInterface[],
     validationErrors: BackendErrorsInterface
-
+    
 }
